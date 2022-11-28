@@ -11,7 +11,7 @@ struct ContentView: View {
     @State private var calendarStores: [CalendarStore] = []
     @State private var selected: Int = 0
     
-    @State var filename = "<none>"
+    @State var filename = ""
     @State var showFileChooser = false
     
     var body: some View {
@@ -36,22 +36,30 @@ struct ContentView: View {
                         }
                     }
                 } label: {
-                    Text("Pick Logs")
+                    Text("Pick Log File")
                 }
                 .padding()
             }
             
             if calendarStores.isEmpty {
                 VStack {
-                    Text("No calendar store found")
+                    Text("No calendar store loaded")
                                 .font(.body)
                                 .foregroundColor(.secondary)
                 }
             } else {
-                Picker("Calendar Store", selection: $selected) {
+                Picker(selection: $selected) {
                     ForEach(Array(calendarStores.enumerated()), id: \.element) { index, store in
-                        Text(store.timestamp).tag(index)
+                        Text(store.timestamp)
+                            .tag(index)
+                            .font(.title2)
                     }
+                } label: {
+                    Text("Calendar Store:")
+                        .font(.title2)
+                }
+                .onChange(of: calendarStores) { _ in
+                    selected = 0
                 }
                 .pickerStyle(.menu)
                 .padding()
@@ -65,9 +73,7 @@ struct ContentView: View {
                                 }
                             }
                         } else {
-                            Text("No calendar store loaded")
-                                .font(.body)
-                                .foregroundColor(.secondary)
+                            noSelection
                         }
                     }
                     .tabItem {
@@ -81,9 +87,7 @@ struct ContentView: View {
                                 }
                             }
                         } else {
-                            Text("No calendar store loaded")
-                                .font(.body)
-                                .foregroundColor(.secondary)
+                            noSelection
                         }
                     }
                     .tabItem {
@@ -97,9 +101,7 @@ struct ContentView: View {
                                 }
                             }
                         } else {
-                            Text("No calendar store loaded")
-                                .font(.body)
-                                .foregroundColor(.secondary)
+                            noSelection
                         }
                     }
                     .tabItem {
@@ -109,6 +111,12 @@ struct ContentView: View {
                 .padding()
             }
         }
+    }
+    
+    var noSelection: some View {
+        Text("No calendar store selected")
+            .font(.body)
+            .foregroundColor(.secondary)
     }
 }
 
