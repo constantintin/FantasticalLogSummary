@@ -154,15 +154,6 @@ let calendarStoreParser = Parse {
     syncQueuesParser
 }
 
-let skipNotCalendarStoreParser = Parse {
-    print("skpped")
-    print($0.count)
-} with: {
-    Many {
-        Not { logBeginParser; "Calendar store state\n" }
-        PrefixThrough("\n")
-    }
-}
 
 /// search for all occurrences of "Calendar store state" and parse the following string
 /// throws away all failed parse attempts
