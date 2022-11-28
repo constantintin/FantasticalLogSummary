@@ -139,6 +139,8 @@ let skipNotCalendarStoreParser = Parse {
     }
 }
 
+/// search for all occurrences of "Calendar store state" and parse the following string
+/// throws away all failed parse attempts
 func parseCalendarStores(_ string: String) -> [CalendarStore] {
     var stores: [CalendarStore?] = []
     let lines = string.split(whereSeparator: \.isNewline)
