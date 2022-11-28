@@ -14,6 +14,9 @@
 		386C9D442934B05600F650D9 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386C9D432934B05600F650D9 /* Parser.swift */; };
 		386C9D472934B11C00F650D9 /* Parsing in Frameworks */ = {isa = PBXBuildFile; productRef = 386C9D462934B11C00F650D9 /* Parsing */; };
 		386C9D4B2934E8D700F650D9 /* ExampleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386C9D4A2934E8D700F650D9 /* ExampleInput.swift */; };
+		386C9D4D2934F05D00F650D9 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386C9D4C2934F05D00F650D9 /* AccountView.swift */; };
+		386C9D4F2934F4BF00F650D9 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386C9D4E2934F4BE00F650D9 /* CalendarView.swift */; };
+		386C9D532934F53000F650D9 /* SyncQueueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386C9D522934F53000F650D9 /* SyncQueueView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +28,9 @@
 		386C9D3D2934952D00F650D9 /* FantasticalLogSummary.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FantasticalLogSummary.entitlements; sourceTree = "<group>"; };
 		386C9D432934B05600F650D9 /* Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
 		386C9D4A2934E8D700F650D9 /* ExampleInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleInput.swift; sourceTree = "<group>"; };
+		386C9D4C2934F05D00F650D9 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
+		386C9D4E2934F4BE00F650D9 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		386C9D522934F53000F650D9 /* SyncQueueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncQueueView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +66,9 @@
 			children = (
 				386C9D342934952C00F650D9 /* FantasticalLogSummaryApp.swift */,
 				386C9D362934952C00F650D9 /* ContentView.swift */,
+				386C9D4C2934F05D00F650D9 /* AccountView.swift */,
+				386C9D522934F53000F650D9 /* SyncQueueView.swift */,
+				386C9D4E2934F4BE00F650D9 /* CalendarView.swift */,
 				386C9D4A2934E8D700F650D9 /* ExampleInput.swift */,
 				386C9D432934B05600F650D9 /* Parser.swift */,
 				386C9D382934952D00F650D9 /* Assets.xcassets */,
@@ -153,10 +162,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				386C9D532934F53000F650D9 /* SyncQueueView.swift in Sources */,
 				386C9D372934952C00F650D9 /* ContentView.swift in Sources */,
 				386C9D4B2934E8D700F650D9 /* ExampleInput.swift in Sources */,
+				386C9D4F2934F4BF00F650D9 /* CalendarView.swift in Sources */,
 				386C9D352934952C00F650D9 /* FantasticalLogSummaryApp.swift in Sources */,
 				386C9D442934B05600F650D9 /* Parser.swift in Sources */,
+				386C9D4D2934F05D00F650D9 /* AccountView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

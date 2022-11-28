@@ -8,11 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var calendarStores = exampleStores
+    @State private var calendarStores: [CalendarStore] = exampleStores
     @State private var selected: Int = 0
-    
-    @State var filename = "Filename"
-    @State var showFileChooser = false
     
     var body: some View {
         VStack {
@@ -26,24 +23,48 @@ struct ContentView: View {
 
             TabView {
                 VStack {
-                    ForEach(calendarStores[selected].accounts) { account in
-                        Text(account.name)
+                    if calendarStores.count > selected {
+                        List {
+                            ForEach(calendarStores[selected].accounts) { account in
+                                AccountView(account: account)
+                            }
+                        }
+                    } else {
+                        Text("No calendar store loaded")
+                            .font(.body)
+                            .foregroundColor(.secondary)
                     }
                 }
                 .tabItem {
                     Text("Accounts")
                 }
                 VStack {
-                    ForEach(calendarStores[selected].calendars) { calendar in
-                        Text(calendar.name)
+                    if calendarStores.count > selected {
+                        List {
+                            ForEach(calendarStores[selected].calendars) { calendar in
+                                CalendarView(calendar: calendar)
+                            }
+                        }
+                    } else {
+                        Text("No calendar store loaded")
+                            .font(.body)
+                            .foregroundColor(.secondary)
                     }
                 }
                 .tabItem {
                     Text("Calendars")
                 }
                 VStack {
-                    ForEach(calendarStores[selected].syncQueues) { syncQueue in
-                        Text(syncQueue.name)
+                    if calendarStores.count > selected {
+                        List {
+                            ForEach(calendarStores[selected].syncQueues) { syncQueue in
+                                SyncQueueView(syncQueue: syncQueue)
+                            }
+                        }
+                    } else {
+                        Text("No calendar store loaded")
+                            .font(.body)
+                            .foregroundColor(.secondary)
                     }
                 }
                 .tabItem {
