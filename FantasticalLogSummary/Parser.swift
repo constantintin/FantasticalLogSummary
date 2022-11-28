@@ -52,8 +52,10 @@ let syncQueueParser = Parse {
     Prefix { $0 != " " }.map(String.init)
     " / "
     Prefix { $0 != " " }.map(String.init)
-    Skip { Prefix { $0 != "\n" } }
-    "\n)>\n"
+    Skip {
+        PrefixThrough("\n")
+        ")>\n"
+    }
 }
 
 let syncQueuesParser = Parse {
@@ -71,8 +73,7 @@ let calendarParser = Parse {
     Calendar(name: $0[0], id: $0[2])
 } with: {
     Skip {
-        logBeginParser
-        "\t"
+        logBeginParser; "\t"
     }
     Many {
         Prefix { $0 != "," && $0 != "\n" }.map(String.init)
@@ -88,16 +89,16 @@ let calendarsParser = Parse {
         calendarParser
     } separator: {
         "\n"
+    } terminator: {
+        "\n"
     }
-    "\n"
 }
 
 let accountParser = Parse {
     Account(name: $0[0], id: $0[1], mail: ($0.count > 4) ? $0[4] : nil)
 } with: {
     Skip {
-        logBeginParser
-        "\t"
+        logBeginParser; "\t"
     }
     Many {
         Prefix { $0 != "," && $0 != "\n" }.map(String.init)
@@ -113,8 +114,9 @@ let accountsParser = Parse {
         accountParser
     } separator: {
         "\n"
+    } terminator: {
+        "\n"
     }
-    "\n"
 }
 
 let defaultCalendarsParser = Parse {
