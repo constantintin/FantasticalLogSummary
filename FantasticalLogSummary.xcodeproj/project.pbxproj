@@ -11,6 +11,8 @@
 		386C9D372934952C00F650D9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386C9D362934952C00F650D9 /* ContentView.swift */; };
 		386C9D392934952D00F650D9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 386C9D382934952D00F650D9 /* Assets.xcassets */; };
 		386C9D3C2934952D00F650D9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 386C9D3B2934952D00F650D9 /* Preview Assets.xcassets */; };
+		386C9D442934B05600F650D9 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386C9D432934B05600F650D9 /* Parser.swift */; };
+		386C9D472934B11C00F650D9 /* Parsing in Frameworks */ = {isa = PBXBuildFile; productRef = 386C9D462934B11C00F650D9 /* Parsing */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +22,7 @@
 		386C9D382934952D00F650D9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		386C9D3B2934952D00F650D9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		386C9D3D2934952D00F650D9 /* FantasticalLogSummary.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FantasticalLogSummary.entitlements; sourceTree = "<group>"; };
+		386C9D432934B05600F650D9 /* Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -27,6 +30,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				386C9D472934B11C00F650D9 /* Parsing in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -54,6 +58,7 @@
 			children = (
 				386C9D342934952C00F650D9 /* FantasticalLogSummaryApp.swift */,
 				386C9D362934952C00F650D9 /* ContentView.swift */,
+				386C9D432934B05600F650D9 /* Parser.swift */,
 				386C9D382934952D00F650D9 /* Assets.xcassets */,
 				386C9D3D2934952D00F650D9 /* FantasticalLogSummary.entitlements */,
 				386C9D3A2934952D00F650D9 /* Preview Content */,
@@ -85,6 +90,9 @@
 			dependencies = (
 			);
 			name = FantasticalLogSummary;
+			packageProductDependencies = (
+				386C9D462934B11C00F650D9 /* Parsing */,
+			);
 			productName = FantasticalLogSummary;
 			productReference = 386C9D312934952C00F650D9 /* FantasticalLogSummary.app */;
 			productType = "com.apple.product-type.application";
@@ -113,6 +121,9 @@
 				Base,
 			);
 			mainGroup = 386C9D282934952C00F650D9;
+			packageReferences = (
+				386C9D452934B11C00F650D9 /* XCRemoteSwiftPackageReference "swift-parsing" */,
+			);
 			productRefGroup = 386C9D322934952C00F650D9 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -141,6 +152,7 @@
 			files = (
 				386C9D372934952C00F650D9 /* ContentView.swift in Sources */,
 				386C9D352934952C00F650D9 /* FantasticalLogSummaryApp.swift in Sources */,
+				386C9D442934B05600F650D9 /* Parser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -336,6 +348,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		386C9D452934B11C00F650D9 /* XCRemoteSwiftPackageReference "swift-parsing" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-parsing#getting-started";
+			requirement = {
+				kind = exactVersion;
+				version = 0.10.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		386C9D462934B11C00F650D9 /* Parsing */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 386C9D452934B11C00F650D9 /* XCRemoteSwiftPackageReference "swift-parsing" */;
+			productName = Parsing;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 386C9D292934952C00F650D9 /* Project object */;
 }
