@@ -95,7 +95,9 @@ let calendarsParser = Parse {
 }
 
 let accountParser = Parse {
-    Account(name: $0[0], id: $0[1], mail: ($0.count > 4) ? $0[4] : nil)
+    // only use mail if it exists and contains "@"
+    let mail = ($0.count > 4) && $0[4].contains("@") ? $0[4] : nil
+    return Account(name: $0[0], id: $0[1], mail: mail)
 } with: {
     Skip {
         logBeginParser; "\t"
