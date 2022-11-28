@@ -35,12 +35,12 @@ struct CalendarStore: Identifiable, Hashable {
 let logBeginParser = Parse {
     String($0 + " " + $1)
 } with: {
-    Prefix { $0 != " " }
+    Prefix { $0 != " " && $0 != "\n" }
     " "
-    Prefix { $0 != " " }
+    Prefix { $0 != " " && $0 != "\n" }
     " "
     Skip {
-        Prefix { $0 != " " }; " "
+        "["; PrefixThrough("]"); " "
     }
 }
 
@@ -70,7 +70,7 @@ let calendarParser = Parse {
 } with: {
     Skip {
         logBeginParser
-        Whitespace(4, .horizontal)
+        "\t"
     }
     Many {
         Prefix { $0 != "," && $0 != "\n" }.map(String.init)
@@ -95,7 +95,7 @@ let accountParser = Parse {
 } with: {
     Skip {
         logBeginParser
-        Whitespace(4, .horizontal)
+        "\t"
     }
     Many {
         Prefix { $0 != "," && $0 != "\n" }.map(String.init)
@@ -130,23 +130,23 @@ let calendarStoreParser = Parse {
 }
 
 let skipNotCalendarStoreParser = Parse {
-    Skip {
-         Many {
-            Not { logBeginParser; "Calendar store state\n" }
-            PrefixUpTo("\n")
-        } separator: {
-            "\n"
-        }
-        "\n"
+    print("skpped")
+    print($0.count)
+} with: {
+    Many {
+        Not { logBeginParser; "Calendar store state\n" }
+        PrefixThrough("\n")
     }
 }
 
-let exampleStores: [CalendarStore] = try! Parse {
-    skipNotCalendarStoreParser
+
+let calendarStoresParser = Parse {
+    Skip { skipNotCalendarStoreParser }
     Many {
         calendarStoreParser
     } separator: {
         skipNotCalendarStoreParser
     }
     Skip { Rest() }
-}.parse(exampleInput)
+}
+
