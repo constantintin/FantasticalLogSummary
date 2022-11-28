@@ -17,6 +17,8 @@ struct Account: Identifiable, Hashable {
 struct Calendar: Identifiable, Hashable {
     var name: String
     var id: String
+    var defaultEvent: Bool = false
+    var defaultTask: Bool = false
 }
 
 struct SyncQueue: Identifiable, Hashable {
@@ -115,17 +117,40 @@ let accountsParser = Parse {
     "\n"
 }
 
+let defaultCalendarsParser = Parse {
+    return (event: $0, task: $1)
+} with: {
+    Skip {
+        PrefixThrough("\n")
+        logBeginParser; "Default event calendar: "
+        PrefixThrough(" ")
+    }
+    PrefixUpTo("\n")
+    Skip {
+        "\n"
+        logBeginParser; "Default task calendar: "
+        PrefixThrough(" ")
+    }
+    PrefixUpTo("\n")
+    "\n"
+}
+
 let calendarStoreParser = Parse {
-    return CalendarStore(timestamp: $0, accounts: $1, calendars: $2, syncQueues: $3)
+    // mark default calendars before returning
+    let defaults = $3
+    var calendars = $2
+    if let eventCalendarIndex = calendars.firstIndex(where: { $0.id == defaults.event }) {
+        calendars[eventCalendarIndex].defaultEvent = true
+    }
+    if let taskCalendarIndex = calendars.firstIndex(where: { $0.id == defaults.task }) {
+        calendars[taskCalendarIndex].defaultTask = true
+    }
+    return CalendarStore(timestamp: $0, accounts: $1, calendars: calendars, syncQueues: $4)
 } with: {
     logBeginParser; "Calendar store state\n"
     accountsParser
     calendarsParser
-    Skip {
-        PrefixThrough("\n")
-        PrefixThrough("\n")
-        PrefixThrough("\n")
-    }
+    defaultCalendarsParser
     syncQueuesParser
 }
 
