@@ -70,7 +70,7 @@ let calendarParser = Parse {
 } with: {
     Skip {
         logBeginParser
-        Whitespace(1, .horizontal)
+        Whitespace(4, .horizontal)
     }
     Many {
         Prefix { $0 != "," && $0 != "\n" }.map(String.init)
@@ -95,7 +95,7 @@ let accountParser = Parse {
 } with: {
     Skip {
         logBeginParser
-        Whitespace(1, .horizontal)
+        Whitespace(4, .horizontal)
     }
     Many {
         Prefix { $0 != "," && $0 != "\n" }.map(String.init)
