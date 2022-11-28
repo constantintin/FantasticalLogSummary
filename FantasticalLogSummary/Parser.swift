@@ -47,14 +47,14 @@ let logBeginParser = Parse {
 }
 
 let syncQueueParser = Parse {
-    SyncQueue(name: $0, id: $1)
+    return SyncQueue(name: $0, id: $1)
 } with: {
-    Prefix { $0 != " " }.map(String.init)
+    PrefixUpTo(" ").map(String.init)
     " / "
-    Prefix { $0 != " " }.map(String.init)
+    PrefixUpTo(" ").map(String.init)
     Skip {
         PrefixThrough("\n")
-        ")>\n"
+        ")>"
     }
 }
 
@@ -166,7 +166,7 @@ func parseCalendarStores(_ string: String) -> [CalendarStore] {
         if line.contains("Calendar store state") {
             stores.append(try? Parse {
                 calendarStoreParser
-                Skip { Rest() }
+                Skip { Optionally { Rest() } }
             }.parse(lines.suffix(lines.count - index).joined(separator: "\n")))
         }
     }
