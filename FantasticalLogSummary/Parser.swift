@@ -139,14 +139,17 @@ let skipNotCalendarStoreParser = Parse {
     }
 }
 
-
-let calendarStoresParser = Parse {
-    Skip { skipNotCalendarStoreParser }
-    Many {
-        calendarStoreParser
-    } separator: {
-        skipNotCalendarStoreParser
+func parseCalendarStores(_ string: String) -> [CalendarStore] {
+    var stores: [CalendarStore?] = []
+    let lines = string.split(whereSeparator: \.isNewline)
+    for (index, line) in lines.enumerated() {
+        if line.contains("Calendar store state") {
+            stores.append(try? Parse {
+                calendarStoreParser
+                Skip { Rest() }
+            }.parse(lines.suffix(lines.count - index).joined(separator: "\n")))
+        }
     }
-    Skip { Rest() }
+    return stores.compactMap{ $0 }
 }
 

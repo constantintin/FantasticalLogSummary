@@ -28,7 +28,7 @@ struct ContentView: View {
                             self.filename = url.lastPathComponent
                             do {
                                 let file = try String(contentsOf: url)
-                                calendarStores = try calendarStoresParser.parse(file)
+                                calendarStores = parseCalendarStores(file)
                             } catch let error {
                                 calendarStores = []
                                 print("Error: \(error)")
