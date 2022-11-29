@@ -53,8 +53,12 @@ let syncQueueParser = Parse {
     " / "
     PrefixUpTo(" ").map(String.init)
     Skip {
-        PrefixThrough("\n")
-        ")>"
+        Many {
+            Not { ")>\n" }
+            PrefixThrough("\n")
+        } terminator: {
+            ")>"
+        }
     }
 }
 
@@ -121,11 +125,21 @@ let accountsParser = Parse {
     }
 }
 
+let currentCalendarSetParser = Parse {
+    logBeginParser; "Current calendar set:"; PrefixThrough("\n")
+    Many {
+        logBeginParser; "\t"; PrefixThrough("\n")
+    }
+}
+
 let defaultCalendarsParser = Parse {
     return (event: $0, task: $1)
 } with: {
     Skip {
-        PrefixThrough("\n")
+        OneOf {
+            Skip { currentCalendarSetParser }
+            Skip { logBeginParser; "No current calendar set\n" }
+        }
         logBeginParser; "Default event calendar: "
         PrefixThrough(" ")
     }
@@ -166,10 +180,14 @@ func parseCalendarStores(_ string: String) -> [CalendarStore] {
     let lines = string.split(whereSeparator: \.isNewline)
     for (index, line) in lines.enumerated() {
         if line.contains("Calendar store state") {
-            stores.append(try? Parse {
-                calendarStoreParser
-                Skip { Optionally { Rest() } }
-            }.parse(lines.suffix(lines.count - index).joined(separator: "\n")))
+            do {
+                stores.append(try Parse {
+                    calendarStoreParser
+                    Skip { Optionally { Rest() } }
+                }.parse(lines.suffix(lines.count - index).joined(separator: "\n")))
+            } catch let error {
+                print("error parsing: \(error)")
+            }
         }
     }
     return stores.compactMap{ $0 }
