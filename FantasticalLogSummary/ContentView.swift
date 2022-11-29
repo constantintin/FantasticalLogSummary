@@ -133,7 +133,7 @@ struct ContentView: View {
                 try Zip.unzipFile(url, destination: destDir, overwrite: true, password: nil)
                 let dirEnumerator = FileManager.default.enumerator(at: destDir, includingPropertiesForKeys: [.isDirectoryKey])!
                 for case let file as URL in dirEnumerator {
-                    if file.pathExtension == "log" {
+                    if file.pathExtension == "log" && !file.path().contains("helper") {
                         let fileString = try String(contentsOf: file)
                         logString += fileString
                     }
