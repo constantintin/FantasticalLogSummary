@@ -28,16 +28,7 @@ struct ContentView: View {
                     panel.canChooseDirectories = false
                     if panel.runModal() == .OK {
                         if let url = panel.url {
-                            self.filename = url.lastPathComponent
-                            do {
-                                let file = try String(contentsOf: url)
-                                calendarStores = parseCalendarStores(file)
-                                failedParsing = false
-                            } catch let error {
-                                failedParsing = true
-                                calendarStores = []
-                                print("Error: \(error)")
-                            }
+                            openLogFile(url)
                         }
                     }
                 } label: {
@@ -126,6 +117,20 @@ struct ContentView: View {
         Text("No calendar store selected")
             .font(.body)
             .foregroundColor(.secondary)
+    }
+    
+    /// handle chosen file
+    func openLogFile(_ url: URL) {
+        self.filename = url.lastPathComponent
+        do {
+            let file = try String(contentsOf: url)
+            calendarStores = parseCalendarStores(file)
+            failedParsing = false
+        } catch let error {
+            failedParsing = true
+            calendarStores = []
+            print("Error: \(error)")
+        }
     }
 }
 
