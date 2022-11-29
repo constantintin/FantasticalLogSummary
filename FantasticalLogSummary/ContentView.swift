@@ -71,6 +71,7 @@ struct ContentView: View {
                             List {
                                 ForEach(calendarStores[selected].accounts) { account in
                                     AccountView(account: account)
+                                        .listRowSeparator(.visible)
                                 }
                             }
                         } else {
@@ -85,6 +86,7 @@ struct ContentView: View {
                             List {
                                 ForEach(calendarStores[selected].calendars) { calendar in
                                     CalendarView(calendar: calendar)
+                                        .listRowSeparator(.visible)
                                 }
                             }
                         } else {
@@ -99,6 +101,7 @@ struct ContentView: View {
                             List {
                                 ForEach(calendarStores[selected].syncQueues) { syncQueue in
                                     SyncQueueView(syncQueue: syncQueue)
+                                        .listRowSeparator(.visible)
                                 }
                             }
                         } else {
