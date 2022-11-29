@@ -124,25 +124,33 @@ struct ContentView: View {
     func openLogFile(_ url: URL) {
         self.filename = url.lastPathComponent
         do {
-            var logString = ""
             if url.pathExtension == "zip" {
                 // file is zip, unpack and concat
                 let file_name = url.lastPathComponent.prefix(url.lastPathComponent.count - 4)
                 let destDir = FileManager.default.temporaryDirectory.appending(path: file_name)
-                print(destDir.path)
                 try Zip.unzipFile(url, destination: destDir, overwrite: true, password: nil)
-                let dirEnumerator = FileManager.default.enumerator(at: destDir, includingPropertiesForKeys: [.isDirectoryKey])!
-                for case let file as URL in dirEnumerator {
-                    if file.pathExtension == "log" && !file.path().contains("helper") {
-                        let fileString = try String(contentsOf: file)
-                        logString += fileString
+                
+                // try enumerating over all unzipped files
+                if let dirEnumerator = FileManager.default.enumerator(at: destDir, includingPropertiesForKeys: [.isDirectoryKey]) {
+                    calendarStores = []
+                    for case let file as URL in dirEnumerator {
+                        if file.pathExtension == "log" && !file.path().contains("helper") {
+                            let fileString = try String(contentsOf: file)
+                            calendarStores += parseCalendarStores(fileString)
+                        }
                     }
+                } else {
+                    failedParsing = true
+                    calendarStores = []
+                    print("Error: failed creating enumerator on \(destDir.path)")
                 }
+                
+                
             } else {
                 // treat file as a log directly
-                logString = try String(contentsOf: url)
+                let logString = try String(contentsOf: url)
+                calendarStores = parseCalendarStores(logString)
             }
-            calendarStores = parseCalendarStores(logString)
             failedParsing = false
         } catch let error {
             failedParsing = true
