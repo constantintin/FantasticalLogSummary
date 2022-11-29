@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		386974E52935F87B00F2D128 /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = 386974E42935F87B00F2D128 /* Zip */; };
 		386C9D352934952C00F650D9 /* FantasticalLogSummaryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386C9D342934952C00F650D9 /* FantasticalLogSummaryApp.swift */; };
 		386C9D372934952C00F650D9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386C9D362934952C00F650D9 /* ContentView.swift */; };
 		386C9D392934952D00F650D9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 386C9D382934952D00F650D9 /* Assets.xcassets */; };
@@ -36,6 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				386974E52935F87B00F2D128 /* Zip in Frameworks */,
 				386C9D472934B11C00F650D9 /* Parsing in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -101,6 +103,7 @@
 			name = FantasticalLogSummary;
 			packageProductDependencies = (
 				386C9D462934B11C00F650D9 /* Parsing */,
+				386974E42935F87B00F2D128 /* Zip */,
 			);
 			productName = FantasticalLogSummary;
 			productReference = 386C9D312934952C00F650D9 /* FantasticalLogSummary.app */;
@@ -132,6 +135,7 @@
 			mainGroup = 386C9D282934952C00F650D9;
 			packageReferences = (
 				386C9D452934B11C00F650D9 /* XCRemoteSwiftPackageReference "swift-parsing" */,
+				386974E32935F87B00F2D128 /* XCRemoteSwiftPackageReference "Zip" */,
 			);
 			productRefGroup = 386C9D322934952C00F650D9 /* Products */;
 			projectDirPath = "";
@@ -362,6 +366,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		386974E32935F87B00F2D128 /* XCRemoteSwiftPackageReference "Zip" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/marmelroy/Zip";
+			requirement = {
+				kind = exactVersion;
+				version = 2.1.2;
+			};
+		};
 		386C9D452934B11C00F650D9 /* XCRemoteSwiftPackageReference "swift-parsing" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pointfreeco/swift-parsing#getting-started";
@@ -373,6 +385,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		386974E42935F87B00F2D128 /* Zip */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 386974E32935F87B00F2D128 /* XCRemoteSwiftPackageReference "Zip" */;
+			productName = Zip;
+		};
 		386C9D462934B11C00F650D9 /* Parsing */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 386C9D452934B11C00F650D9 /* XCRemoteSwiftPackageReference "swift-parsing" */;
