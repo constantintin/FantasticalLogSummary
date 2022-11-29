@@ -16,7 +16,7 @@ struct AccountView: View {
                     .font(.body)
                     .foregroundColor(.primary)
                     .textSelection(.enabled)
-                    .padding(.trailing, 7)
+                    .padding(.trailing, 23)
                 if let mail = account.mail {
                     Image(systemName: "mail")
                     Text(mail)

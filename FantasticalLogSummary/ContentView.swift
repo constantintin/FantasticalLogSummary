@@ -21,6 +21,7 @@ struct ContentView: View {
             HStack {
                 Text(filename)
                     .font(.title)
+                    .padding()
                 Button {
                     let panel = NSOpenPanel()
                     panel.allowsMultipleSelection = false
