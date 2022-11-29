@@ -1,0 +1,7 @@
+* FantasticalLogSummary
+Pick a .log or .zip debug file from Fantastical to get information about Accounts, Calendars and Sync Queues
+** Get logs from Fantastical
+- Open Fantastical
+- Press the option key and click the File menu
+- Select Debug > Save Debug Logs
+- Select a place to save the logs
