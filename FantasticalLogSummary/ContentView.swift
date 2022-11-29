@@ -11,6 +11,8 @@ struct ContentView: View {
     @State private var calendarStores: [CalendarStore] = []
     @State private var selected: Int = 0
     
+    @State private var failedParsing = false
+    
     @State var filename = ""
     @State var showFileChooser = false
     
@@ -29,7 +31,9 @@ struct ContentView: View {
                             do {
                                 let file = try String(contentsOf: url)
                                 calendarStores = parseCalendarStores(file)
+                                failedParsing = false
                             } catch let error {
+                                failedParsing = true
                                 calendarStores = []
                                 print("Error: \(error)")
                             }
@@ -42,10 +46,14 @@ struct ContentView: View {
             }
             
             if calendarStores.isEmpty {
-                VStack {
-                    Text("No calendar store loaded")
-                                .font(.body)
-                                .foregroundColor(.secondary)
+                if failedParsing {
+                    Text("Error parsing log")
+                        .font(.body)
+                        .foregroundColor(.secondary)
+                } else {
+                    Text("No calendar store in log file or no log file loaded")
+                        .font(.body)
+                        .foregroundColor(.secondary)
                 }
             } else {
                 Picker(selection: $selected) {
@@ -55,7 +63,7 @@ struct ContentView: View {
                             .font(.title2)
                     }
                 } label: {
-                    Text("Calendar Store:")
+                    Text("App Launch Timestamp: ")
                         .font(.title2)
                 }
                 .onChange(of: calendarStores) { _ in
